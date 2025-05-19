@@ -27,6 +27,12 @@ const features = [
     desc: "Get up-to-date itineraries, trail difficulty, and altitude profiles.",
   },
 ];
+const stats = [
+  {title:"5000+", sub:"Happy Trekkers"},
+  {title:"98%", sub:"Satisfaction Rate"},
+  {title:"100+", sub:"Trekking Locations"},
+  {title:"5 Star", sub:"Rated Company"},
+]
 
 export default function Features() {
   return (
@@ -51,6 +57,15 @@ export default function Features() {
               <h4 className="text-lg font-semibold mb-1">{title}</h4>
               <p className="text-gray-600 text-sm">{desc}</p>
             </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="grid grid-cols-4 mt-20">
+        {stats.map(({title, sub}, index) => (
+          <div key={index} className="flex flex-col items-center">
+            <h4 className="text-7xl font-bold text-accent mb-1">{title}</h4>
+            <p className="text-gray-500 text-lg">{sub}</p>
           </div>
         ))}
       </div>

@@ -1,19 +1,19 @@
 import Button from "./ui/Button";
 
-function Banner({children}) {
+function Banner({children, className,img}) {
   return (
     <div
-      className="flex items-center relative h-60 w-full bg-cover bg-center rounded-3xl text-white"
-      style={{ backgroundImage: "url('/images/group.jpg')" }}
+      className={`flex items-center relative h-80 bg-cover bg-center rounded-3xl text-white ${className}`}
+      style={{ backgroundImage: `url('/images/${img}.jpg')` }}
     >
-      <div className="absolute inset-0 bg-black/40 rounded-3xl"></div>
+      <div className="absolute inset-0 bg-black/30 rounded-3xl"></div>
 
       <div className="relative z-10 pl-20">
-        <div className="space-y-4">
+        <div className="space-y-8">
           <div>
             {children}
           </div>
-          <Button>Explore all Treks</Button>
+          {/* <Button>Explore all Treks</Button> */}
         </div>
       </div>
     </div>

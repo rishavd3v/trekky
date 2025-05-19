@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { ChevronDown, Menu, X } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -13,21 +14,21 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
           {/* Logo */}
-          <div className="flex items-center space-x-2">
-            <img src="/images/logo.png" alt="Logo" className="h-8 w-8" />
+          <Link to={'/'} className="flex items-center space-x-2">
+            {/* <img src="/images/logo.png" alt="Logo" className="h-8 w-8" /> */}
             <span className="font-bold text-xl">TrekMate</span>
-          </div>
+          </Link>
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-6">
             {menuItems.map((item, index) => (
               <div key={index} className="relative group">
                 <button className="flex items-center space-x-1 font-medium text-gray-700 hover:text-red-500 transition">
-                  <span>{item}</span>
+                  <Link to={`${item.toLowerCase()}`}>{item}</Link>
                   <ChevronDown className="w-4 h-4" />
                 </button>
                 {/* Dropdown (static for now) */}
-                <div className="absolute top-full mt-2 left-0 hidden group-hover:block bg-white shadow-md rounded-md py-2 w-40">
+                <div className="absolute top-full left-0 hidden group-hover:block bg-primary shadow-md rounded-md py-2 w-40">
                   <a href="#" className="block px-4 py-2 text-sm hover:bg-gray-100">
                     Option 1
                   </a>

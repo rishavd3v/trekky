@@ -7,6 +7,7 @@ import HorizontalBar from "../components/ui/HorizontalBar";
 import Button from "../components/ui/Button";
 import Features from "../components/Features";
 import { Banner, Desc, Title } from "../components/Banner";
+import Testimonial from "../components/Testimonial";
 
 const sampleTrek = Data.treks;
 
@@ -18,11 +19,17 @@ export default function Home(){
             <section className="flex flex-col gap-20">
                 <section>
                     <CardContainer>
-                        <UnderlinedHeading>Upcoming Treks</UnderlinedHeading>
+                        <UnderlinedHeading>Featured Treks</UnderlinedHeading>
                         <Carousel treks={sampleTrek} />
                     </CardContainer>
                 </section>
                 
+                <Banner img="group">
+                    <Title>Explore India's Wild Side</Title>
+                    <Desc>Treks, trails, and tales waiting to be discovered.</Desc>
+                    <Button className="mt-10">Explore all treks</Button>
+                </Banner>
+
                 <section>
                     <UnderlinedHeading>Treks by Difficulty</UnderlinedHeading>
                     <CardContainer>
@@ -31,25 +38,35 @@ export default function Home(){
                     </CardContainer>
 
                     <CardContainer>
-                        <SubHeading>Medium</SubHeading>
-                        <Carousel treks={sampleTrek.filter(trek => trek.difficulty.toLowerCase() === "medium")} />
+                        <SubHeading>Moderate</SubHeading>
+                        <Carousel treks={sampleTrek.filter(trek => trek.difficulty.toLowerCase() === "moderate")} />
                     </CardContainer>
                     <CardContainer>
-                        <SubHeading>Hard</SubHeading>
+                        <SubHeading>Challenging</SubHeading>
                         <Carousel treks={sampleTrek.filter(trek => trek.difficulty.toLowerCase() === "hard")} />
                     </CardContainer>
                     <HorizontalBar/>
                 </section>
 
-                <Banner>
-                    <Title>Explore India's Wild Side</Title>
-                    <Desc>Treks, trails, and tales waiting to be discovered.</Desc>
-                </Banner>
+                <section className="grid grid-cols-2 gap-8">
+                    <Banner img="himalayas">
+                        <Title>Explore Himalayas</Title>
+                        <Desc>Discover the beauty of the Himalayas with us.</Desc>
+                        <Button className="mt-10">Learn More</Button>
+                    </Banner>
+                    <Banner img="weekend">
+                        <Title>Weekend Getaways</Title>
+                        <Desc>Short trips for a quick escape.</Desc>
+                        <Button className="mt-10">Learn More</Button>
+                    </Banner>
+                </section>
 
                 <section>
                     {/* <UnderlinedHeading>Why choose us?</UnderlinedHeading> */}
                     <Features/>
                 </section>
+
+                <Testimonial/>
 
 
 
