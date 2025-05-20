@@ -14,6 +14,14 @@ const SubHeading = ({ children, className, ...props }) => {
   )
 }
 
+const LightText = ({ children, className, ...props }) => {
+  return (
+    <h1 className={`text-accent ${className}`} {...props}>
+      {children}
+    </h1>
+  )
+}
+
 const UnderlinedHeading = ({ children, className}) => {
   return (
     <div className="flex flex-col items-center gap-4">
@@ -25,4 +33,4 @@ const UnderlinedHeading = ({ children, className}) => {
   )
 }
 
-export { Heading, SubHeading, UnderlinedHeading };
+export { Heading, SubHeading, UnderlinedHeading, LightText };

@@ -10,12 +10,12 @@ const ImageGrid = () => {
   ];
 
   return (
-    <div className="grid grid-cols-3 grid-rows-2 gap-4 h-[600px] m-26">
+    <div className="grid grid-cols-3 grid-rows-2 gap-3 h-[600px]">
       <div className="row-span-2 col-span-1">
         <img
           src={images[0]}
           alt="Trek Image 1"
-          className="w-full h-full object-cover rounded-lg"
+          className="w-full h-full object-cover rounded-l-4xl cursor-pointer"
         />
       </div>
 
@@ -24,7 +24,7 @@ const ImageGrid = () => {
           <img
             src={img}
             alt={`Trek Image ${index + 2}`}
-            className="w-full h-full object-cover rounded-lg"
+            className={`w-full h-full object-cover cursor-pointer ${index==1 && "rounded-tr-4xl" || index==3 && "rounded-br-4xl"}`}
           />
         </div>
       ))}

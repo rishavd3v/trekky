@@ -1,5 +1,5 @@
-export default function HorizontalBar({ children, className }) {
+export default function HorizontalBar({className }) {
     return(
-        <div className="w-full h-[0.5px] bg-zinc-500/20 mt-10"></div>
+        <div className={`h-[0.5px] bg-zinc-500/20 mt-10 ${className}`}></div>
     )
 }

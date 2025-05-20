@@ -13,8 +13,9 @@
 @theme{
   --color-primary: #FFFFFF;
   --color-secondary: #000000;
-  --color-accent: #b5b5b5;
+  --color-accent: #5E5C5C;
   --color-style: #FF6467;
+  --color-blue: #2B7FFF;
 }
 /* Tailwind's custom class */
 .no-scrollbar::-webkit-scrollbar {
