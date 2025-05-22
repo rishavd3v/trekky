@@ -9,6 +9,8 @@ import NotFound from './pages/NotFound';
 import Data from "../data.json";
 import useTrekStore from './store/trekStore';
 import ScrollToTop from './components/ScrollToTop';
+import Terms from './pages/Terms';
+import Privacy from './pages/Privacy';
 
 function App() {
   const sampleTrek = Data.treks;
@@ -18,13 +20,15 @@ function App() {
   return (
     <Router>
       <ScrollToTop/>
-      <main className='mt-17'>
       <Navbar/>
+      <main className='mt-17'>
         <Routes>
-        <Route path="*" element={<NotFound/>} />
           <Route path="/" element={<Home/>}/>
           <Route path="/treks" element={<Trek/>}/>
           <Route path="/trek-details/:slug" element={<TrekDetails/>}/>
+          <Route path='/terms-and-conditions' element={<Terms/>}/>
+          <Route path='/privacy-policy' element={<Privacy/>}/>
+          <Route path="*" element={<NotFound/>} />
         </Routes>
       </main>
       <Footer/>
