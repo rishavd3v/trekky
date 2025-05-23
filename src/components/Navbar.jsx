@@ -7,7 +7,13 @@ const Navbar = () => {
 
   const toggleMobileMenu = () => setMobileMenuOpen(!mobileMenuOpen);
 
-  const menuItems = ["Treks", "Destinations", "Seasons", "About"];
+  const menuItems = [
+    {menu:"Treks",options:["Easy Treks","Moderate Treks","Challenging Treks"]
+    },
+    {menu:"Destination",options:[]},
+    {menu:"Seasons",options:[]},
+    {menu:"About",options:[]},
+  ];
 
   return (
     <nav className="bg-white fixed w-full z-20 top-0 left-0 border-b-2 border-gray-100">
@@ -24,17 +30,16 @@ const Navbar = () => {
             {menuItems.map((item, index) => (
               <div key={index} className="relative group">
                 <button className="flex items-center space-x-1 font-medium text-gray-700 hover:text-red-500 transition">
-                  <Link to={`${item.toLowerCase()}`}>{item}</Link>
+                  <Link to={`${item.menu.toLowerCase()}`}>{item.menu}</Link>
                   <ChevronDown className="w-4 h-4" />
                 </button>
                 {/* Dropdown (static for now) */}
                 <div className="absolute top-full left-0 hidden group-hover:block bg-primary shadow-md rounded-md py-2 w-40">
-                  <a href="#" className="block px-4 py-2 text-sm hover:bg-gray-100">
-                    Option 1
-                  </a>
-                  <a href="#" className="block px-4 py-2 text-sm hover:bg-gray-100">
-                    Option 2
-                  </a>
+                  {item.options.map((option,index)=>(
+                    <a href="#" className="block px-4 py-2 text-sm hover:bg-gray-100" key={index}>
+                      {option}
+                    </a>
+                  ))}
                 </div>
               </div>
             ))}

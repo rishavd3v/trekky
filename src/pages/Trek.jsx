@@ -42,7 +42,7 @@ export default function Trek() {
 
             <div className="mx-24 mt-8">
                 <section>
-                    <p className="text-accent mb-4">{filteredTreks.length} activities found{filteredTreks.length>0 && selectedLocation && ": "+selectedLocation}</p>
+                    <p className="text-accent mb-4">{filteredTreks.length} treks found{filteredTreks.length>0 && selectedLocation && ": "+selectedLocation}</p>
                 </section>
 
                 <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">

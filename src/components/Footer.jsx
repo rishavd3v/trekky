@@ -1,9 +1,10 @@
 import { Facebook, Twitter, Instagram, Youtube } from "lucide-react";
 import HorizontalBar from "./ui/HorizontalBar";
+import { Link } from "react-router-dom";
 
 function Footer() {
   return (
-    <footer className="bg-gray-100 text-secondary py-10 px-6 text-center">
+    <footer className="bg-gray-100 text-secondary py-10 px-6 text-center mt-10">
       <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
 
         {/* Logo and Name */}
@@ -18,10 +19,10 @@ function Footer() {
         <div>
           <h3 className="text-xl font-semibold mb-4">Quick Links</h3>
           <ul className="space-y-2 text-sm text-accent">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Treks</a></li>
-            <li><a href="#">About Us</a></li>
-            <li><a href="#">FAQs</a></li>
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/treks">Treks</Link></li>
+            <li><Link to="/privacy-policy">Privacy Policy</Link></li>
+            <li><Link to="/terms-and-conditions">Terms and Conditions</Link></li>
           </ul>
         </div>
 

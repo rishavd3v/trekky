@@ -62,7 +62,6 @@ export default function Home(){
                 </section>
 
                 <section>
-                    {/* <UnderlinedHeading>Why choose us?</UnderlinedHeading> */}
                     <Features/>
                 </section>
 
