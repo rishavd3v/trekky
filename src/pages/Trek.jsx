@@ -3,18 +3,39 @@ import { InfoCard } from "../components/Cards";
 import Pagination from "../components/ui/Pagination";
 import SearchBar from "../components/SearchBar";
 import useTrekStore from "../store/trekStore";
+import { useSearchParam } from "react-use";
 
 export default function Trek() {
     const treks = useTrekStore((state)=>state.treks);
-    const getTrekByLocation = useTrekStore((state)=>state.getTrekByLocation);
     const sampleTrek = treks;
 
+    const getTrekByLocation = useTrekStore((state)=>state.getTrekByLocation);
+    const getFilteredTreks = useTrekStore((state)=>state.getFilteredTreks);
+
+    const destinationQuery = useSearchParam("destination");
+    const difficultyQuery = useSearchParam("difficulty");
+    const seasonQuery = useSearchParam("season");
+
     const [filteredTreks, setFilteredTreks] = useState(sampleTrek);
+    const [selectedLocation, setSelectedLocation] = useState(null);
     
     const cardsPerPage = 12;
     const totalPages = Math.ceil(filteredTreks.length / cardsPerPage);
     const [currentPage, setCurrentPage] = useState(1);
-    const [selectedLocation, setSelectedLocation] = useState(null);
+
+    useEffect(()=>{
+        if(destinationQuery || difficultyQuery || seasonQuery){
+            setFilteredTreks(getFilteredTreks({
+                location: destinationQuery ? destinationQuery : null,
+                difficulty: difficultyQuery ? difficultyQuery : null,
+                season: seasonQuery ? seasonQuery : null
+            }));
+        }
+        else{
+            setFilteredTreks(sampleTrek);
+        }
+        setCurrentPage(1);
+    },[destinationQuery,difficultyQuery,seasonQuery,treks]);
 
     const onSearch = (query)=>{
         setSelectedLocation(query);
