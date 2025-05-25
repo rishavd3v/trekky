@@ -5,6 +5,7 @@ import useTrekStore from "../store/trekStore";
 import { useClickAway } from "react-use";
 
 const Navbar = () => {
+  const [activeMenu, setActiveMenu] = useState(null);
   const toggleMobileMenu = () => setMobileMenuOpen(!mobileMenuOpen);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeMobileMenu, setActiveMobileMenu] = useState(null);
@@ -44,24 +45,37 @@ const Navbar = () => {
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-6">
             {menuItems?.map((item, index) => (
-              <div key={index} className="relative group">
-                <button className="flex items-center space-x-1 font-medium text-gray-700 hover:text-red-500 transition">
-                  <Link to={`${item.menu.toLowerCase()}`}>{item.menu}</Link>
-                  <ChevronDown className="w-4 h-4" />
-                </button>
-                <div className="absolute top-full left-0 hidden group-hover:block bg-primary shadow-md rounded-md py-2 w-40">
-                  {item.options.map((option, index) => (
+              <div
+              key={index}
+              className="relative"
+              onMouseEnter={() => setActiveMenu(index)}
+              onMouseLeave={() => setActiveMenu(null)}
+            >
+              <button className="flex items-center space-x-1 font-medium text-gray-700 hover:text-red-500 transition">
+                <span>{item.menu}</span>
+                <ChevronDown className="w-4 h-4" />
+              </button>
+            
+              {activeMenu === index && (
+                <div className="absolute top-full left-0 bg-primary shadow-md rounded-md py-2 w-40 z-50">
+                  {item.options.map((option, idx) => (
                     <Link
-                      to={`treks?${item.menu==="Destination" ? 
-                        "destination" : item.menu==="Treks"?"difficulty":"season"}=${option.toLowerCase()}`}
+                      key={idx}
+                      to={`treks?${item.menu === "Destination"
+                        ? "destination"
+                        : item.menu === "Treks"
+                        ? "difficulty"
+                        : "season"}=${option.toLowerCase()}`}
                       className="block px-4 py-2 text-sm hover:bg-gray-100"
-                      key={index}
+                      onClick={() => setActiveMenu(null)} // 🔁 Collapse on click
                     >
                       {option}
                     </Link>
                   ))}
                 </div>
-              </div>
+              )}
+            </div>
+            
             ))}
           </div>
 
