@@ -6,16 +6,20 @@ import Footer from './components/Footer'
 import Trek from './pages/Trek';
 import TrekDetails from './pages/TrekDetails';
 import NotFound from './pages/NotFound';
-import Data from "../data.json";
 import useTrekStore from './store/trekStore';
 import ScrollToTop from './components/ScrollToTop';
 import Terms from './pages/Terms';
 import Privacy from './pages/Privacy';
+import { useEffect } from 'react';
+import axios from 'axios';
 
 function App() {
-  const sampleTrek = Data.treks;
+  const fetchTreks = useTrekStore((state)=> state.fetchTreks);
   const setTreks = useTrekStore((state) => state.setTreks);
-  setTreks(sampleTrek);
+  
+  useEffect(()=>{
+    fetchTreks();
+  },[]);
 
   return (
     <Router>

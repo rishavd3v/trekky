@@ -1,9 +1,29 @@
 import { create } from "zustand";
 import slugify from "../utils/slugify";
+import axios from "axios";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const useTrekStore = create((set, get) => ({
   treks: [],
+  loading: false,
+
+  setLoading: (state)=>set({loading:state}),
+
   setTreks: (treksData) => set({ treks: treksData }),
+
+  fetchTreks: async () => {
+    set({ loading: true });
+    try {
+      const response = await axios.get(API_URL);
+      set({ treks: response.data });
+    }
+    catch (error) {
+      console.error("Failed to fetch treks", error);
+    }
+    finally {
+      set({ loading: false });
+    }
+  },
 
   getTrekBySlug: (slug) => {
     return get().treks.find((trek) => {
@@ -14,7 +34,7 @@ const useTrekStore = create((set, get) => ({
 
   getTrekByLocation: (query) => {
     return get().treks.filter((trek) =>
-      `${trek.location.state}, ${trek.location.region}`
+      `${trek.state}, ${trek.region}`
         .toLowerCase()
         .includes(query.toLowerCase())
     );
@@ -34,7 +54,7 @@ const useTrekStore = create((set, get) => ({
     };
     
     return get().treks.filter((trek) => {
-      const byLocation = !filters.location || trek.location?.state?.toLowerCase() === filters.location.toLowerCase();
+      const byLocation = !filters.location || trek.state?.toLowerCase() === filters.location.toLowerCase();
       const byDifficulty = !filters.difficulty || trek.difficulty.toLowerCase() === filters.difficulty;
       const bySeason =
       !filters.season || (Array.isArray(trek.months) &&
@@ -50,15 +70,15 @@ const useTrekStore = create((set, get) => ({
     return Array.from(
       new Map(
         get().treks.map((item) => [
-          `${item.location.state}, ${item.location.region}`,
-          item.location,
+          `${item.state}, ${item.region}`,
+          item,
         ])
       ).values()
     );
   },
 
   getStates: () => {
-    const states = get().treks.map((item) => item.location.state);
+    const states = get().treks.map((item) => item.state);
     return Array.from(new Set(states));
   },
 }));
