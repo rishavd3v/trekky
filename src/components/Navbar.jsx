@@ -9,6 +9,7 @@ const Navbar = () => {
   const toggleMobileMenu = () => setMobileMenuOpen(!mobileMenuOpen);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeMobileMenu, setActiveMobileMenu] = useState(null);
+  const treks = useTrekStore((state) => state.treks);
   const getStates = useTrekStore((state) => state.getStates);
   const [destinations, setDestinations] = useState([]);
   const mobileMenuRef = useRef(null);
@@ -16,7 +17,7 @@ const Navbar = () => {
   useEffect(() => {
     const states = getStates();
     setDestinations(states);
-  }, []);
+  }, [treks]);
 
   useClickAway(mobileMenuRef, () => {
     if (mobileMenuOpen) setMobileMenuOpen(false);
@@ -51,7 +52,7 @@ const Navbar = () => {
               onMouseEnter={() => setActiveMenu(index)}
               onMouseLeave={() => setActiveMenu(null)}
             >
-              <button className="flex items-center space-x-1 font-medium text-gray-700 hover:text-red-500 transition">
+              <button className="flex items-center space-x-1 font-medium text-gray-700 hover:text-red-500 transition cursor-pointer">
                 <span>{item.menu}</span>
                 <ChevronDown className="w-4 h-4" />
               </button>

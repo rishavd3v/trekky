@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import useTrekStore from "../store/trekStore";
 import { useEffect, useState } from "react";
 import ImageGrid from "../components/ImageGrid";
-import { Heading, LightText, SubHeading } from "../components/ui/Text";
+import { Heading, LightText } from "../components/ui/Text";
 import {
   Check,
   Clock,
@@ -12,18 +12,25 @@ import {
   Mountain,
   X,
 } from "lucide-react";
-import HorizontalBar from "../components/ui/HorizontalBar";
 import ItineraryCard from "../components/ItineraryCard";
 import FAQCard from "../components/FAQ";
+import TrekNotFound from "../components/TrekNotFound";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 export default function TrekDetails() {
   const { slug } = useParams();
+  const loading = useTrekStore((state)=>state.loading);
   const getTrekBySlug = useTrekStore((state) => state.getTrekBySlug);
+  const treks = useTrekStore((state) => state.treks);
   const [trek, setTrek] = useState();
+
 
   useEffect(() => {
     setTrek(getTrekBySlug(slug));
-  }, []);
+  }, [treks,slug]);
+
+  if(loading) return <LoadingSpinner/>
+  if (!trek && !loading) return <TrekNotFound/>
 
   return (
     trek && (
@@ -33,7 +40,7 @@ export default function TrekDetails() {
           <div className="py-2 flex gap-1">
             <MapPin className="w-4 text-accent" />
             <LightText>
-              {trek.location.region}, {trek.location.state}, India
+              {trek.region}, {trek.state}, India
             </LightText>
           </div>
         </section>
@@ -76,11 +83,11 @@ export default function TrekDetails() {
                 <ul>
                   <li>
                     <span className="font-semibold">State: </span>
-                    {trek.location.state}
+                    {trek.state}
                   </li>
                   <li>
                     <span className="font-semibold">Region: </span>
-                    {trek.location.region}
+                    {trek.region}
                   </li>
                   <li>
                     <span className="font-semibold">Start/End Point: </span>
@@ -180,7 +187,7 @@ export default function TrekDetails() {
           <div className="space-y-3 mt-4">
             {trek.faq.map((item, index) => {
               return (
-                <FAQCard title={item.title} faq={item.body} key={index}/>
+                <FAQCard title={item.question} faq={item.answer} key={index}/>
               );
             })}
           </div>

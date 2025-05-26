@@ -1,14 +1,12 @@
-import { CardContainer, Carousel, InfoCard } from "../components/Cards";
+import { CardContainer, Carousel } from "../components/Cards";
 import Hero from "../components/Hero";
-import { Heading, SubHeading, UnderlinedHeading } from "../components/ui/Text";
+import {SubHeading, UnderlinedHeading } from "../components/ui/Text";
 import HorizontalBar from "../components/ui/HorizontalBar";
 import Button from "../components/ui/Button";
 import Features from "../components/Features";
 import { Banner, Desc, Title } from "../components/Banner";
 import Testimonial from "../components/Testimonial";
 import { useNavigate } from "react-router-dom";
-import useTrekStore from "../store/trekStore";
-import Data from "../../data.json";
 
 export default function Home(){
     const navigate = useNavigate();

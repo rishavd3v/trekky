@@ -1,5 +1,5 @@
-import { use, useEffect, useMemo, useRef, useState } from "react";
-import { Heart, ChevronLeft, ChevronRight, MapPin, Clock } from "lucide-react";
+import { useMemo, useRef } from "react";
+import { ChevronLeft, ChevronRight, MapPin, Clock } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import slugify from "../utils/slugify";
 import useTrekStore from "../store/trekStore";
@@ -16,7 +16,7 @@ const CardContainer = ({ children, className }) => {
 
 const InfoCard = ({ trek }) => {
   const navigate = useNavigate();
-  const { id, name, location, price, discount, days, nights, image_url } = trek;
+  const { name, state, region, price, discount, days, nights, image_url } = trek;
   const slug = slugify(name);
   return (
     <div className="bg-primary rounded-xl shadow-md overflow-hidden hover:shadow-lg transition relative group">
@@ -45,7 +45,7 @@ const InfoCard = ({ trek }) => {
           </h3>
           <p className="text-sm text-gray-500 flex items-center gap-1">
             <MapPin className="w-4" />
-            {location.region}, {location.state}
+            {region}, {state}
           </p>
           <div className="h-[1px] w-full bg-zinc-400/30 mt-4"></div>
         </div>
@@ -73,12 +73,13 @@ const InfoCard = ({ trek }) => {
 const Carousel = ({ difficulty }) => {
   const treks = useTrekStore((state) => state.treks);
 
-  const filteredTreks = useMemo(()=>{
-    if(!difficulty) return treks;
-    return treks.filter((trek) => trek.difficulty.toLowerCase() === difficulty.toLowerCase());
-  })
+  const filteredTreks = useMemo(() => {
+    if (!difficulty) return treks;
+    return treks.filter(
+      (trek) => trek.difficulty.toLowerCase() === difficulty.toLowerCase()
+    );
+  }, [difficulty, treks]);
 
-  if (!filteredTreks || filteredTreks.length === 0) return "No treks available!";
   const scrollRef = useRef(null);
 
   const scroll = (direction) => {
@@ -94,42 +95,48 @@ const Carousel = ({ difficulty }) => {
 
   return (
     <div className="relative w-full max-w-[1280px] mx-auto">
-      {/* Arrows */}
-      {filteredTreks.length > 4 && (
-        <div>
-          <div className="absolute -left-5 top-1/2 -translate-y-1/2 z-10">
-            <button
-              onClick={() => scroll("left")}
-              className="bg-white shadow-md p-2 rounded-full hover:bg-gray-100 cursor-pointer"
-            >
-              <ChevronLeft size={24} />
-            </button>
-          </div>
-          <div className="absolute -right-5 top-1/2 -translate-y-1/2 z-10">
-            <button
-              onClick={() => scroll("right")}
-              className="bg-white shadow-md p-2 rounded-full hover:bg-gray-100 cursor-pointer"
-            >
-              <ChevronRight size={24} />
-            </button>
-          </div>
-        </div>
-      )}
-
-      {/* Scrollable List Without Padding */}
-      <div
-        ref={scrollRef}
-        className="flex overflow-x-hidden scroll-smooth py-4"
-      >
-        {/* Card wrapper with spacing */}
-        <div className="flex gap-4 ml-auto mr-auto pl-4 pr-4">
-          {filteredTreks.map((trek) => (
-            <div key={trek.id} className="w-[300px] flex-shrink-0">
-              <InfoCard trek={trek} />
+      {!filteredTreks || filteredTreks.length === 0 ? (
+        <p className="text-center text-gray-600 py-10">No treks available!</p>
+      ) : (
+        <>
+          {/* Arrows */}
+          {filteredTreks.length > 4 && (
+            <div>
+              <div className="absolute -left-5 top-1/2 -translate-y-1/2 z-10">
+                <button
+                  onClick={() => scroll("left")}
+                  className="bg-white shadow-md p-2 rounded-full hover:bg-gray-100 cursor-pointer"
+                >
+                  <ChevronLeft size={24} />
+                </button>
+              </div>
+              <div className="absolute -right-5 top-1/2 -translate-y-1/2 z-10">
+                <button
+                  onClick={() => scroll("right")}
+                  className="bg-white shadow-md p-2 rounded-full hover:bg-gray-100 cursor-pointer"
+                >
+                  <ChevronRight size={24} />
+                </button>
+              </div>
             </div>
-          ))}
-        </div>
-      </div>
+          )}
+
+          {/* Scrollable List Without Padding */}
+          <div
+            ref={scrollRef}
+            className="flex overflow-x-hidden scroll-smooth py-4"
+          >
+            {/* Card wrapper with spacing */}
+            <div className="flex gap-4 ml-auto mr-auto pl-4 pr-4">
+              {filteredTreks.map((trek) => (
+                <div key={trek.id} className="w-[300px] flex-shrink-0">
+                  <InfoCard trek={trek} />
+                </div>
+              ))}
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 };
