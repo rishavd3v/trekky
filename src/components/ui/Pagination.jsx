@@ -69,9 +69,9 @@ export default function Pagination({ currentPage, totalPages, onPageChange }) {
         {/* Next */}
         <li>
           <button
+            disabled={currentPage === totalPages}
             onClick={() => onPageChange(currentPage + 1)}
             className="flex h-10 min-w-10 items-center justify-center rounded-lg border border-stroke bg-white px-2 text-base font-medium text-dark hover:bg-gray-100 disabled:opacity-50 cursor-pointer"
-            disabled={currentPage === totalPages}
           >
             <ChevronRight className="w-4" />
           </button>

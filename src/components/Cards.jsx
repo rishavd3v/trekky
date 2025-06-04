@@ -3,6 +3,7 @@ import { ChevronLeft, ChevronRight, MapPin, Clock } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import slugify from "../utils/slugify";
 import useTrekStore from "../store/trekStore";
+import LoadingSpinner from "./LoadingSpinner";
 
 const CardContainer = ({ children, className }) => {
   return (
@@ -18,12 +19,13 @@ const InfoCard = ({ trek }) => {
   const navigate = useNavigate();
   const { name, state, region, price, discount, days, nights, image_url } = trek;
   const slug = slugify(name);
+  
   return (
     <div className="bg-primary rounded-xl shadow-md overflow-hidden hover:shadow-lg transition relative group">
       {/* Image Section */}
       <div className="relative overflow-hidden h-56">
         <img
-          src={image_url[0]}
+          src={image_url? image_url[0] : "images/image.jpg"}
           alt={name}
           className="object-cover w-full h-full transform group-hover:scale-110 transition duration-400 cursor-pointer"
           onClick={() => navigate(`/trek-details/${slug}`)}
@@ -72,7 +74,7 @@ const InfoCard = ({ trek }) => {
 
 const Carousel = ({ difficulty }) => {
   const treks = useTrekStore((state) => state.treks);
-
+  
   const filteredTreks = useMemo(() => {
     if (!difficulty) return treks;
     return treks.filter(

@@ -7,10 +7,15 @@ import Features from "../components/Features";
 import { Banner, Desc, Title } from "../components/Banner";
 import Testimonial from "../components/Testimonial";
 import { useNavigate } from "react-router-dom";
+import useTrekStore from "../store/trekStore";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 export default function Home(){
     const navigate = useNavigate();
-
+    
+    const loading = useTrekStore(state=> state.loading);
+    if(loading) return <LoadingSpinner/>
+    
     return(
         <div className="mx-24">
             <Hero/>

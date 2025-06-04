@@ -53,7 +53,7 @@ const Navbar = () => {
               onMouseLeave={() => setActiveMenu(null)}
             >
               <button className="flex items-center space-x-1 font-medium text-gray-700 hover:text-red-500 transition cursor-pointer">
-                <span>{item.menu}</span>
+                <Link to={item.menu==="Treks" && "/treks"}>{item.menu}</Link>
                 <ChevronDown className="w-4 h-4" />
               </button>
             

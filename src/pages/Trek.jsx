@@ -4,11 +4,13 @@ import Pagination from "../components/ui/Pagination";
 import SearchBar from "../components/SearchBar";
 import useTrekStore from "../store/trekStore";
 import { useSearchParam } from "react-use";
+import { useNavigate } from "react-router-dom";
 
 export default function Trek() {
     const treks = useTrekStore((state)=>state.treks);
     const sampleTrek = treks;
 
+    const navigate = useNavigate();
     const getTrekByLocation = useTrekStore((state)=>state.getTrekByLocation);
     const getFilteredTreks = useTrekStore((state)=>state.getFilteredTreks);
 
@@ -27,7 +29,7 @@ export default function Trek() {
         if(destinationQuery || difficultyQuery || seasonQuery){
             setFilteredTreks(getFilteredTreks({
                 location: destinationQuery ? destinationQuery : null,
-                difficulty: difficultyQuery ? difficultyQuery : null,
+                difficulty: difficultyQuery ? (difficultyQuery==="challenging"?"hard":difficultyQuery) : null,
                 season: seasonQuery ? seasonQuery : null
             }));
         }
@@ -39,6 +41,7 @@ export default function Trek() {
 
     const onSearch = (query)=>{
         setSelectedLocation(query);
+        navigate('/treks');
         setCurrentPage(1);
         setFilteredTreks(getTrekByLocation(query));
     }
@@ -63,7 +66,8 @@ export default function Trek() {
 
             <div className="mx-24 mt-8">
                 <section>
-                    <p className="text-accent mb-4">{filteredTreks.length} treks found{filteredTreks.length>0 && selectedLocation && ": "+selectedLocation}</p>
+                    <p className="text-accent mb-4">{filteredTreks.length} treks found{filteredTreks.length>0 &&
+                    (seasonQuery||destinationQuery||difficultyQuery||selectedLocation) && " : " + (destinationQuery || seasonQuery || difficultyQuery || selectedLocation).toUpperCase()}</p>
                 </section>
 
                 <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">

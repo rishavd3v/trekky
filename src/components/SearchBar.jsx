@@ -19,9 +19,15 @@ const SearchBar = ({ data, onSearch }) => {
   }, [data]);
 
   const handleInputChange = (e) => {
-    const value = e.target.value;
+    const value = e.target.value.toLowerCase();
     setQuery(value);
-    setFilteredLocations(filterLocations(value, uniqueLocations));
+    
+    const filtered = uniqueLocations.filter((loc) => {
+      const combined = `${loc.state}, ${loc.region}`.toLowerCase();
+      return combined.includes(value);
+    });
+  
+    setFilteredLocations(filtered);
     setShowDropdown(true);
   };
 
