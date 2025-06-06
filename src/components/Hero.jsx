@@ -6,7 +6,7 @@ export default function Hero() {
     <div
       className="relative bg-cover bg-center flex justify-center items-center text-primary rounded-xl mt-20"
       style={{
-        backgroundImage: "url('/images/hero-bg.jpg')",
+        backgroundImage: "url('http://d2ware8nn8r7m2.cloudfront.net/images/hero-bg.jpg')",
         height: "calc(100vh - 100px)",
       }}
     >
