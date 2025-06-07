@@ -9,13 +9,17 @@ import Testimonial from "../components/Testimonial";
 import { useNavigate } from "react-router-dom";
 import useTrekStore from "../store/trekStore";
 import LoadingSpinner from "../components/LoadingSpinner";
+import { ErrorPage } from "../components/Error";
 
 export default function Home(){
     const navigate = useNavigate();
     
     const loading = useTrekStore(state=> state.loading);
+    const error = useTrekStore(state=>state.error);
+
     if(loading) return <LoadingSpinner/>
-    
+    if(error) return <ErrorPage/>
+
     return(
         <div className="mx-24">
             <Hero/>

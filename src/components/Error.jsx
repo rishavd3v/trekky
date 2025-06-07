@@ -6,7 +6,8 @@ const TrekNotFound = () => {
     <div className="min-h-screen flex flex-col items-center justify-center text-center px-4">
       <h1 className="text-4xl font-bold mb-4 text-red-600">Trek Not Found</h1>
       <p className="mb-6 text-gray-600">
-        Sorry, the trek you're looking for does not exist or may have been removed.
+        Sorry, the trek you're looking for does not exist or may have been
+        removed.
       </p>
       <Link
         to="/"
@@ -18,4 +19,15 @@ const TrekNotFound = () => {
   );
 };
 
-export default TrekNotFound;
+const ErrorPage = () => {
+  return (
+    <div className="min-h-screen flex flex-col items-center justify-center text-center px-4">
+      <h1 className="text-4xl font-bold mb-4 text-red-600">Error Loading Data!</h1>
+      <p className="mb-6 text-gray-600">
+        Sorry, an unexpected error has occured, please refresh or check back later.
+      </p>
+    </div>
+  );
+};
+
+export { TrekNotFound, ErrorPage};

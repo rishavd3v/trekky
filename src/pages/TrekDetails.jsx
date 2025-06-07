@@ -14,8 +14,8 @@ import {
 } from "lucide-react";
 import ItineraryCard from "../components/ItineraryCard";
 import FAQCard from "../components/FAQ";
-import TrekNotFound from "../components/TrekNotFound";
 import LoadingSpinner from "../components/LoadingSpinner";
+import { TrekNotFound } from "../components/Error";
 
 export default function TrekDetails() {
   const { slug } = useParams();

@@ -6,6 +6,7 @@ const API_URL = import.meta.env.VITE_API_URL;
 const useTrekStore = create((set, get) => ({
   treks: [],
   loading: false,
+  error: false,
 
   setLoading: (state)=>set({loading:state}),
 
@@ -16,8 +17,10 @@ const useTrekStore = create((set, get) => ({
     try {
       const response = await axios.get(API_URL);
       set({ treks: response.data });
+      set({error:false});
     }
     catch (error) {
+      set({ error: true });
       console.error("Failed to fetch treks", error);
     }
     finally {
