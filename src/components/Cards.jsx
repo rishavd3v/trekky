@@ -3,7 +3,6 @@ import { ChevronLeft, ChevronRight, MapPin, Clock } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import slugify from "../utils/slugify";
 import useTrekStore from "../store/trekStore";
-import LoadingSpinner from "./LoadingSpinner";
 
 const CardContainer = ({ children, className }) => {
   return (

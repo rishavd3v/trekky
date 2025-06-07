@@ -5,10 +5,12 @@ import SearchBar from "../components/SearchBar";
 import useTrekStore from "../store/trekStore";
 import { useSearchParam } from "react-use";
 import { useNavigate } from "react-router-dom";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 export default function Trek() {
+    const loading = useTrekStore(state=>state.loading);
+
     const treks = useTrekStore((state)=>state.treks);
-    const sampleTrek = treks;
 
     const navigate = useNavigate();
     const getTrekByLocation = useTrekStore((state)=>state.getTrekByLocation);
@@ -18,7 +20,7 @@ export default function Trek() {
     const difficultyQuery = useSearchParam("difficulty");
     const seasonQuery = useSearchParam("season");
 
-    const [filteredTreks, setFilteredTreks] = useState(sampleTrek);
+    const [filteredTreks, setFilteredTreks] = useState(treks);
     const [selectedLocation, setSelectedLocation] = useState(null);
     
     const cardsPerPage = 12;
@@ -34,7 +36,8 @@ export default function Trek() {
             }));
         }
         else{
-            setFilteredTreks(sampleTrek);
+            setFilteredTreks(treks);
+            setFilteredTreks(treks);
         }
         setCurrentPage(1);
     },[destinationQuery,difficultyQuery,seasonQuery,treks]);
@@ -56,12 +59,14 @@ export default function Trek() {
         });
     }, [currentPage]);
 
+    if(loading) return <LoadingSpinner/>
+    
     return (
         <div className="flex flex-col gap-4">
             <section className="relative bg-cover bg-center py-16"
              style={{ backgroundImage: `url('/images/bg1.jpg')` }}>
                 <div className="absolute inset-0 bg-black/30"></div>
-                <SearchBar data={sampleTrek} onSearch={onSearch} />
+                <SearchBar data={treks} onSearch={onSearch} />
             </section>
 
             <div className="mx-24 mt-8">

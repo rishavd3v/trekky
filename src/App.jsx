@@ -11,7 +11,6 @@ import ScrollToTop from './components/ScrollToTop';
 import Terms from './pages/Terms';
 import Privacy from './pages/Privacy';
 import { useEffect } from 'react';
-import axios from 'axios';
 
 function App() {
   const fetchTreks = useTrekStore((state)=> state.fetchTreks);
