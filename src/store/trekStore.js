@@ -63,7 +63,7 @@ const useTrekStore = create((set, get) => ({
     };
     const treks = get().treks;
     if (!Array.isArray(treks)) return [];
-    
+
     return get().treks.filter((trek) => {
       const byLocation = !filters.location || trek.state?.toLowerCase() === filters.location.toLowerCase();
       const byDifficulty = !filters.difficulty || trek.difficulty.toLowerCase() === filters.difficulty;
