@@ -29,6 +29,8 @@ const useTrekStore = create((set, get) => ({
   },
 
   getTrekBySlug: (slug) => {
+    const treks = get().treks;
+    if (!Array.isArray(treks)) return [];
     return get().treks.find((trek) => {
       const newSlug = slugify(trek.name);
       return newSlug == slug;
@@ -36,6 +38,8 @@ const useTrekStore = create((set, get) => ({
   },
 
   getTrekByLocation: (query) => {
+    const treks = get().treks;
+    if (!Array.isArray(treks)) return [];
     return get().treks.filter((trek) =>
       `${trek.state}, ${trek.region}`
         .toLowerCase()
@@ -44,6 +48,8 @@ const useTrekStore = create((set, get) => ({
   },
 
   getTrekByDifficulty: (difficulty) => {
+    const treks = get().treks;
+    if (!Array.isArray(treks)) return [];
     return get().treks.filter((trek) => {
       trek.difficulty.toLowerCase() === difficulty.toLowerCase();
     });
@@ -55,6 +61,8 @@ const useTrekStore = create((set, get) => ({
       monsoon: ["July", "August", "September"],
       winter: ["October", "November", "December", "January", "February"],
     };
+    const treks = get().treks;
+    if (!Array.isArray(treks)) return [];
     
     return get().treks.filter((trek) => {
       const byLocation = !filters.location || trek.state?.toLowerCase() === filters.location.toLowerCase();
@@ -70,20 +78,21 @@ const useTrekStore = create((set, get) => ({
   },
 
   getUniqueLocations: () => {
+    const treks = get().treks;
+    if (!Array.isArray(treks)) return [];
+  
     return Array.from(
       new Map(
-        get().treks.map((item) => [
-          `${item.state}, ${item.region}`,
-          item,
-        ])
+        treks.map((item) => [`${item.state}, ${item.region}`, item])
       ).values()
     );
   },
 
   getStates: () => {
-    const states = get().treks.map((item) => item.state);
-    return Array.from(new Set(states));
-  },
+    const treks = get().treks;
+    if (!Array.isArray(treks)) return [];
+    return Array.from(new Set(treks.map((item) => item.state)));
+  }
 }));
 
 export default useTrekStore;
