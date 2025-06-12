@@ -78,6 +78,8 @@ const useTrekStore = create((set, get) => ({
   },
 
   getUniqueLocations: () => {
+    const treks = get().treks;
+    if (!Array.isArray(treks)) return [];
     return Array.from(
       new Map(
         get().treks.map((item) => [
@@ -89,6 +91,8 @@ const useTrekStore = create((set, get) => ({
   },
 
   getStates: () => {
+    const treks = get().treks;
+    if (!Array.isArray(treks)) return [];
     const states = get().treks.map((item) => item.state);
     return Array.from(new Set(states));
   },
