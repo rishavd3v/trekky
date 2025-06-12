@@ -78,21 +78,20 @@ const useTrekStore = create((set, get) => ({
   },
 
   getUniqueLocations: () => {
-    const treks = get().treks;
-    if (!Array.isArray(treks)) return [];
-  
     return Array.from(
       new Map(
-        treks.map((item) => [`${item.state}, ${item.region}`, item])
+        get().treks.map((item) => [
+          `${item.state}, ${item.region}`,
+          item,
+        ])
       ).values()
     );
   },
 
   getStates: () => {
-    const treks = get().treks;
-    if (!Array.isArray(treks)) return [];
-    return Array.from(new Set(treks.map((item) => item.state)));
-  }
+    const states = get().treks.map((item) => item.state);
+    return Array.from(new Set(states));
+  },
 }));
 
 export default useTrekStore;
