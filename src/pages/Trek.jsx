@@ -3,12 +3,13 @@ import { InfoCard } from "../components/Cards";
 import Pagination from "../components/ui/Pagination";
 import SearchBar from "../components/SearchBar";
 import useTrekStore from "../store/trekStore";
-import { useSearchParam } from "react-use";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import LoadingSpinner from "../components/LoadingSpinner";
+import { ErrorPage } from "../components/Error";
 
 export default function Trek() {
     const loading = useTrekStore(state=>state.loading);
+    const error = useTrekStore((state)=>state.error);
 
     const treks = useTrekStore((state)=>state.treks);
 
@@ -16,9 +17,11 @@ export default function Trek() {
     const getTrekByLocation = useTrekStore((state)=>state.getTrekByLocation);
     const getFilteredTreks = useTrekStore((state)=>state.getFilteredTreks);
 
-    const destinationQuery = useSearchParam("destination");
-    const difficultyQuery = useSearchParam("difficulty");
-    const seasonQuery = useSearchParam("season");
+    const [param] = useSearchParams();
+    
+    const destinationQuery = param.get("destination");
+    const difficultyQuery = param.get("difficulty");
+    const seasonQuery = param.get("season");
 
     const [filteredTreks, setFilteredTreks] = useState(treks);
     const [selectedLocation, setSelectedLocation] = useState(null);
@@ -60,6 +63,7 @@ export default function Trek() {
     }, [currentPage]);
 
     if(loading) return <LoadingSpinner/>
+    if(error) return <ErrorPage/>
     
     return (
         <div className="flex flex-col gap-4">
