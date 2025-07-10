@@ -24,7 +24,7 @@ const InfoCard = ({ trek }) => {
       {/* Image Section */}
       <div className="relative overflow-hidden h-56">
         <img
-          src={image_url? image_url[0] : "images/image.jpg"}
+          src={image_url? "https://d2ware8nn8r7m2.cloudfront.net/images/"+image_url[0] : "/image"}
           alt={name}
           className="object-cover w-full h-full transform group-hover:scale-110 transition duration-400 cursor-pointer"
           onClick={() => navigate(`/trek-details/${slug}`)}
