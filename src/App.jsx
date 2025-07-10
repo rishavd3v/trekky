@@ -14,7 +14,6 @@ import { useEffect } from 'react';
 
 function App() {
   const fetchTreks = useTrekStore((state)=> state.fetchTreks);
-  const setTreks = useTrekStore((state) => state.setTreks);
   
   useEffect(()=>{
     fetchTreks();

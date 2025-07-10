@@ -1,4 +1,3 @@
-// components/LoadingSpinner.jsx
 export default function LoadingSpinner() {
     return (
       <div className="min-h-screen flex justify-center items-center">

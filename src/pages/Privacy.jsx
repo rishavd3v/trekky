@@ -49,7 +49,7 @@ export default function Privacy() {
       <section className="space-y-3">
         <Title>All Rights Reserved</Title>
         <Body>
-          All website content is the property of <span className="font-semibold">HIM TREK TOURS AND TRAVEL</span>
+          All website content is the property of <span className="font-semibold">Trek Mate </span>
           and may not be reproduced or used commercially without permission.
         </Body>
         <Body>
@@ -67,7 +67,7 @@ export default function Privacy() {
           </Link>.
         </Body>
         <Body>
-          Thank you for choosing <span className="font-semibold">HIM TREK TOURS AND TRAVEL</span> for your travel experience.
+          Thank you for choosing <span className="font-semibold">Trek Mate</span> for your travel experience.
         </Body>
       </section>
     </div>

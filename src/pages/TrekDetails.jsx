@@ -15,11 +15,12 @@ import {
 import ItineraryCard from "../components/ItineraryCard";
 import FAQCard from "../components/FAQ";
 import LoadingSpinner from "../components/LoadingSpinner";
-import { TrekNotFound } from "../components/Error";
+import { ErrorPage, TrekNotFound } from "../components/Error";
 
 export default function TrekDetails() {
   const { slug } = useParams();
   const loading = useTrekStore((state)=>state.loading);
+  const error = useTrekStore((state)=>state.error);
   const getTrekBySlug = useTrekStore((state) => state.getTrekBySlug);
   const treks = useTrekStore((state) => state.treks);
   const [trek, setTrek] = useState();
@@ -30,6 +31,8 @@ export default function TrekDetails() {
   }, [treks,slug]);
 
   if(loading) return <LoadingSpinner/>
+  if(error) return <ErrorPage/>
+  
   if (!trek && !loading) return <TrekNotFound/>
 
   return (
