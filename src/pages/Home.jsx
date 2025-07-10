@@ -21,6 +21,7 @@ export default function Home(){
     if(error) return <ErrorPage/>
 
     return(
+        !error && !loading && 
         <div className="mx-24">
             <Hero/>
             <section className="flex flex-col gap-20">
