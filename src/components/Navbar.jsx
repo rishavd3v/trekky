@@ -30,7 +30,7 @@ const Navbar = () => {
     },
     { menu: "Destination", options: destinations },
     { menu: "Seasons", options: ["Summer", "Monsoon", "Winter"] },
-    { menu: "About", options: [] },
+    { menu: "About", options: ["Contact Us","Privacy Policy", "Terms and Conditions"] },
   ];
 
   return (
@@ -62,13 +62,13 @@ const Navbar = () => {
                   {item.options.map((option, idx) => (
                     <Link
                       key={idx}
-                      to={`treks?${item.menu === "Destination"
-                        ? "destination"
+                      to={`${item.menu === "Destination"
+                        ? "treks?destination="
                         : item.menu === "Treks"
-                        ? "difficulty"
-                        : "season"}=${option.toLowerCase()}`}
+                        ? "treks?difficulty="
+                        : item.menu==="Seasons"?"treks?season=":""}${option.toLowerCase().replace(/\s+/g, '-')}`}
                       className="block px-4 py-2 text-sm hover:bg-gray-100"
-                      onClick={() => setActiveMenu(null)} // 🔁 Collapse on click
+                      onClick={() => setActiveMenu(null)}
                     >
                       {option}
                     </Link>
